@@ -101,7 +101,6 @@ func (c *MyClient) PreparePlaylist(playlistName string) spotify.ID {
 	isExisted := false
 	var targetPlaylistId spotify.ID
 	for _, playlist := range allPlaylists {
-		fmt.Println(playlist.Name)
 		if playlist.Name == playlistName {
 			isExisted = true
 			targetPlaylistId = playlist.ID

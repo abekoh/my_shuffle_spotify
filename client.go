@@ -14,6 +14,7 @@ import (
 )
 
 const redirectURI = "http://localhost:8080/callback"
+const keysPath = "./keys.json"
 const tokenPath = "./token.json"
 
 var (
@@ -22,6 +23,11 @@ var (
 	tokenCh   = make(chan *oauth2.Token)
 	state     = "abc123"
 )
+
+type Keys struct {
+	Id     string `json:"spotify_id"`
+	Secret string `json:"spotify_secret"`
+}
 
 func authHandler(w http.ResponseWriter, r *http.Request) {
 	tok, err := authorize.Token(state, r)
@@ -78,7 +84,26 @@ func saveTokenFile(tok *oauth2.Token) error {
 	return nil
 }
 
+func getKeys() *Keys {
+	f, err := os.Open(keysPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+	readAll, err := ioutil.ReadAll(f)
+	if err != nil {
+		log.Fatal(err)
+	}
+	var keys *Keys
+	err = json.Unmarshal(readAll, &keys)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return keys
+}
+
 func getClient() *spotify.Client {
+	keys := getKeys()
+	authorize.SetAuthInfo(keys.Id, keys.Secret)
 	var client spotify.Client
 	var tok *oauth2.Token
 	tok, err := getTokenFromFile()
