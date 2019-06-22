@@ -17,7 +17,7 @@ const redirectURI = "http://localhost:8080/callback"
 const tokenPath = "./token.json"
 
 var (
-	scopes    = []string{spotify.ScopePlaylistModifyPrivate, spotify.ScopeUserFollowRead}
+	scopes    = []string{spotify.ScopePlaylistModifyPrivate, spotify.ScopePlaylistModifyPublic, spotify.ScopeUserFollowRead}
 	authorize = spotify.NewAuthenticator(redirectURI, scopes...)
 	tokenCh   = make(chan *oauth2.Token)
 	state     = "abc123"
