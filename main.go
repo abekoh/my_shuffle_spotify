@@ -148,7 +148,7 @@ func (c *MyClient) CreateShuffledPlaylist(playlistName string) error {
 			allTrackIds = append(allTrackIds, track.ID)
 		}
 		shuffle(allTrackIds)
-		playlistTrackIds = append(playlistTrackIds, allTrackIds[0:1]...)
+		playlistTrackIds = append(playlistTrackIds, allTrackIds[0:2]...)
 	}
 	_, err := c.SpotifyClient.AddTracksToPlaylist(targetPlaylistId, playlistTrackIds...)
 	return err
