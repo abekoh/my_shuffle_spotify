@@ -165,5 +165,5 @@ func main() {
 	fmt.Println("You are logged in as:", user.ID)
 	client.UserId = user.ID
 
-	client.CreateShuffledPlaylist("Shuffled")
+	client.CreateShuffledPlaylist("Daily Shuffled 10 Artists")
 }
